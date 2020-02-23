@@ -6,23 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Slider;
+use App\Tag;
 
 class FrontController extends Controller
 {
-
-
-
-    // public function bestSeller()
-    // {
-
-    // }
-
-    // public function newProducts()
-    // {
-
-
-    // }
-
 
     public function showMainPage()
     {
@@ -48,7 +35,7 @@ class FrontController extends Controller
                                      ]);
     }
 
-
+//displaying single product
     public function showProduct($id)
     {
         $product = Product::find($id);
@@ -56,4 +43,17 @@ class FrontController extends Controller
         //display a single product in showSingleProduct.blade.php in frontEnd view folder in view directory of resources directory
         return view('product')->with('product', $product);
     }
+
+//displaying related products of selected tag
+    public function tagRelatedProduct($id)
+    {
+        $selectedTag = Tag::find($id);   //finding tag object based on tag id
+
+        $tagRelatedProducts = $selectedTag->products()->get();
+        // dd($tagRelatedProducts->chunk(3));
+        return view('tagRelatedProducts', compact('tagRelatedProducts'));
+
+    }
+
+
 }

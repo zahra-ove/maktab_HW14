@@ -1,9 +1,4 @@
 <?php
-//show main page via frontcontroller
-Route::get('/', 'Frontend\FrontController@showMainPage');
-
-//show sigle product page
-Route::get('/product/{id}','Frontend\FrontController@showProduct')->name('product');
 
 /*  shows home page   */
 Route::get('/index', function () {
@@ -164,5 +159,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('CheckRol
 // Route::resource('users', 'User\UsersController')->except(['store', 'destroy', 'edit', 'update']);
 Route::resource('users/comment', 'User\CommentsController');
 Route::get('/profile', 'UserController@index')->name('profile');
+Route::get('/tag/{id}/products', 'Frontend\FrontController@tagRelatedProduct')->name('tag.products');
 
+//show main page via frontcontroller
+Route::get('/', 'Frontend\FrontController@showMainPage');
+//show sigle product page
+Route::get('/product/{id}','Frontend\FrontController@showProduct')->name('product');
 

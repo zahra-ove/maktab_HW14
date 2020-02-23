@@ -78,7 +78,8 @@
                 <p>
                     @foreach($product->tags  as  $tag)
 
-                    <a href="#">{{$tag}}, </a>
+                      <a href="{{route('tag.products', $tag->id)}}">{{$tag->tag_name}}</a>
+                      {{$loop->last ? '' : ','}}
 
                     @endforeach
                 </p>
