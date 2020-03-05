@@ -28,7 +28,10 @@
     <link rel="stylesheet" href="{{asset('adminpanel/dist/css/bootstrap-rtl.min.css')}}">
     <!-- template rtl version -->
     <link rel="stylesheet" href="{{asset('adminpanel/dist/css/custom-style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('css/mycss.css')}}">
-    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+
+    <script src="{{asset('js/dropzone.js')}}"></script> --}}
 
   </head>

@@ -16,8 +16,8 @@
         <h2>افزودن محصول جدید</h2>
         <br><br>
 
-
-        <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
+        {{-- class="dropzone" id="myDropzone" --}}
+        <form action="{{route('admin.products.store')}}" method="post"  class="dropzone" id="myDropzone" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -40,23 +40,7 @@
                 <input type="number"  name="product_count"    placeholder="موجودی"  id="product_count" class="form-control" value="{{old('product_count')}}" />
             </div>
 
-
-            {{-- <div class="form-group required">
-                <label for="category_id" class="col-sm-1 control-label">دسته بندی</label>
-                  <select name="category_id" id="gender" class="custom-select form-control col-sm-2" required/>
-                        <option value="" selected>--دسته بندی--</option>
-                        <option value="1">کالای دیجیتال</option>
-                        <option value="2">آرایشی، بهداشتی و سلامت</option>
-                        <option value="3">خودرو، ابزارو اداری</option>
-                        <option value="4">مد و پوشاک</option>
-                        <option value="5">خانه و آشپزخانه</option>
-                        <option value="6">کتاب، لوازم التحریر و هنر</option>
-                        <option value="7">اسباب بازی، کودک و نوزاد</option>
-                        <option value="8">ورزش و سفر</option>
-                        <option value="9">خوردنی و آشامیدنی</option>
-                  </select>
-            </div> --}}
-
+            <!-- choosing category from list -->
             <div class="form-group required">
                 <label for="category_id" class="col-sm-1 control-label">دسته بندی</label>
                   <select name="category_id" id="gender" class="custom-select form-control col-sm-2" required/>
@@ -67,18 +51,27 @@
                   </select>
             </div>
 
-            <div  class="form-group" >
+            {{-- image upload by dropzone --}}
+            <div class="dropzone-previews"></div>
+
+
+
+            {{-- <div  class="form-group" >
                 <label for="productImg">آپلود تصویر محصول</label>
-                <input type="file" name="image" id="productImg" >
-            </div>
+                <input type="file" name="file" id="productImg" >
+            </div> --}}
 
             {{-- <br/><br/><br/><br/> --}}
             <div class="form-group my-5">
-                <input type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label">
+                {{-- <input type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label"> --}}
+                <button type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label">افزودن</button>
                 <a href="{{route('admin.products.index')}}" class="btn btn-default">بازگشت <span class="fa fa-arrow-circle-left"></span></a>
             </div>
 
         </form>
+
+
+        {{-- <form action="{{route('admin.products.store')}}"  method="POST" class="dropzone" id="myDropzone">@csrf</form> --}}
     </div>
 
 @endsection

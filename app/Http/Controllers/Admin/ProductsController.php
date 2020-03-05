@@ -23,7 +23,7 @@ class ProductsController extends Controller
         $products = Product::with('category', 'images')->get();
         // $products = Product::all();
 
-        return view('admin.products.showProducts')->with('products', $products);
+        return view('admin.products.index')->with('products', $products);
     }
 
     /**
@@ -45,13 +45,15 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'product_code'  =>  'required|string',
             'product_name'  =>  'required|string',
             'product_price' =>  'required|string',
             'product_count' =>  'required|string',
             'category_id'   =>  'nullable|numeric',
-            'image'         =>  'nullable|image|max:2048'
+            'file'          =>  'nullable',    //name of image field in form
+            'file.*'          =>  'max:2048|image' //name of image field in form
         ]);
 
         //saving product's attribute
@@ -66,34 +68,41 @@ class ProductsController extends Controller
         $newProduct->save();
 
 
-        if($request->hasFile('image')){
-            //get file name with extension
-            $fileNamewithExtension = $request->file('image')->getClientOriginalName();
-            //get file name
-            $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME);
-            //get file extension
-            $fileExtension = $request->file('image')->getClientOriginalExtension();
-            // file name to store
-            $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;
-            $request->file('image')->storeAs('public/products', $fileNameToStore);
-        }else{
-            $fileNameToStore = 'noimage.jpg';   //if no image is selected by user, then place default image as noimage to this article
+        if($request->hasFile('file')){
+            foreach($request->file('file') as $image)
+            {
+
+                $fileNamewithExtension = $image->getClientOriginalName();         //get file name with extension
+                $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME); //get file name
+                $fileExtension = $image->getClientOriginalExtension();          //get file extension
+                $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;    // file name to store
+                $image->storeAs('public/products', $fileNameToStore);
+
+
+                //store product's image in Images table
+                $newProductImage = new Image();
+                $newProductImage->imageable_id = $newProduct->id;
+                $newProductImage->imageable_type = "App\Product";
+                $newProductImage->image_name = $fileNameToStore;
+                $newProductImage->image_path = "storage/products/";
+
+                $newProductImage->save();
+            }
+        }
+        else{
+            $fileNameToStore = 'noimage.jpg';  //if no image is selected by user, then place default image as noimage to this article
         }
 
 
-            // //storing product's image in Pimage table
-            // $newProductImage = new Pimage();
-            // $newProductImage->pimage_name = $fileNameToStore;
-            // $newProductImage->product_id = $newProduct->id;
 
-            //store product's image in Images table
-            $newProductImage = new Image();
-            $newProductImage->imageable_id = $newProduct->id;
-            $newProductImage->imageable_type = "App\Product";
-            $newProductImage->image_name = $fileNameToStore;
-            $newProductImage->image_path = "storage/products/";
+        // //store product's image in Images table
+        // $newProductImage = new Image();
+        // $newProductImage->imageable_id = $newProduct->id;
+        // $newProductImage->imageable_type = "App\Product";
+        // $newProductImage->image_name = $fileNameToStore;
+        // $newProductImage->image_path = "storage/products/";
 
-            $newProductImage->save();
+        // $newProductImage->save();
 
 
         return redirect('admin/products')->with('status', 'محصول جدید با موفقیت اضافه شد.');
@@ -107,7 +116,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);        //finding product based on received id
+        return view('admin.products.show')->with('product', $product);
     }
 
     /**

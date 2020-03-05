@@ -1,35 +1,49 @@
-.mytable>tbody>tr>td, .mytable>tbody>tr>th,  .mytable>thead>tr>td, .mytable>thead>tr>th {
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    src: url('../fonts/IRANSansWeb.ttf') format('truetype'), url('../fonts/IRANSansWeb.woff') format('woff'), url('../fonts/IRANSansWeb.eot') format('eot');
+}
+
+* {
+    font-family: IRANSans;
+}
+
+.mytable>tbody>tr>td,
+.mytable>tbody>tr>th,
+.mytable>thead>tr>td,
+.mytable>thead>tr>th {
     padding: 10px;
 }
 
-.fpart-first{
+.fpart-first {
     background-color: rgba(0, 0, 0, 0.801) !important;
     color: white !important;
 }
 
-.fpart-second{
+.fpart-second {
     background-color: black !important;
     color: white !important;
 }
 
-.fpart-first  a, h5{
+.fpart-first a,
+h5 {
     color: white !important;
 }
 
-.fpart-second  a, h5{
+.fpart-second a,
+h5 {
     color: white !important;
 }
 
-#top{
+#top {
     background-color: #9f194b !important;
 }
 
-#top ul li a{
+#top ul li a {
     border-left: 1px solid rgba(0, 0, 0, 0.01) !important;
     text-decoration: none !important;
 }
 
-#top ul li a:hover{
+#top ul li a:hover {
     background-color: #d22163;
 }
-

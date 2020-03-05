@@ -43,7 +43,7 @@
                         <tr>
                             <td>{{$product->id}}</td>
                             <td>{{$product->product_code}}</td>
-                            <td>{{$product->product_name}}</td>
+                            <td><a href="{{route('admin.products.show', $product)}}">{{$product->product_name}}</a></td>
                             <td>{{$product->product_price}}</td>
                             <td>{{$product->product_count}}</td>
                             <td>{{$product->category->category_name}}</td>
