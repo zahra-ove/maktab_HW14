@@ -17,7 +17,7 @@
         <br><br>
 
         {{-- class="dropzone" id="myDropzone" --}}
-        <form action="{{route('admin.products.store')}}" method="post"  class="dropzone" id="myDropzone" enctype="multipart/form-data">
+        <form action="{{route('admin.products.store')}}" method="post"  class="dropzone" id="myDropzone"  enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -51,8 +51,10 @@
                   </select>
             </div>
 
-            {{-- image upload by dropzone --}}
-            <div class="dropzone-previews"></div>
+            {{-- image upload by class="dropzone-previews" --}}
+            <div  id="dropzonePreview" class="dropzone-previews">
+                <div id="clickable" class="dz-message">برای آپلود تصویر اینجا کلیک کنید.</div>
+            </div>
 
 
 
@@ -63,8 +65,8 @@
 
             {{-- <br/><br/><br/><br/> --}}
             <div class="form-group my-5">
-                {{-- <input type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label"> --}}
-                <button type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label">افزودن</button>
+                <input type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label">
+                {{-- <button type="submit"  value="افزودن"  class="btn btn-primary col-sm-1 control-label">افزودن</button> --}}
                 <a href="{{route('admin.products.index')}}" class="btn btn-default">بازگشت <span class="fa fa-arrow-circle-left"></span></a>
             </div>
 

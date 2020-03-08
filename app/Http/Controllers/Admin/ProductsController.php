@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Validator;
 use App\Product;
 use App\Image;
 use App\Pimage;
@@ -21,9 +23,10 @@ class ProductsController extends Controller
     {
         // $products = Product::with('category', 'pimages')->get();
         $products = Product::with('category', 'images')->get();
+        $categories = Category::all();
         // $products = Product::all();
 
-        return view('admin.products.index')->with('products', $products);
+        return view('admin.products.index')->with('products', $products)->with('categories', $categories);
     }
 
     /**
@@ -46,7 +49,8 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validation = $request->validate([
+        // $validator = Validator::make($request->all(), [
             'product_code'  =>  'required|string',
             'product_name'  =>  'required|string',
             'product_price' =>  'required|string',
@@ -55,6 +59,12 @@ class ProductsController extends Controller
             'file'          =>  'nullable',    //name of image field in form
             'file.*'          =>  'max:2048|image' //name of image field in form
         ]);
+
+        // if ($validator->fails())
+		// {
+		// 	// return Response::make($validation->errors->first(), 400);
+		// 	return $validator->errors()->all();
+		// }
 
         //saving product's attribute
         $newProduct = new Product();
@@ -91,6 +101,14 @@ class ProductsController extends Controller
         }
         else{
             $fileNameToStore = 'noimage.jpg';  //if no image is selected by user, then place default image as noimage to this article
+            //store product's image in Images table
+            $newProductImage = new Image();
+            $newProductImage->imageable_id = $newProduct->id;
+            $newProductImage->imageable_type = "App\Product";
+            $newProductImage->image_name = $fileNameToStore;
+            $newProductImage->image_path = "storage/products/";
+
+            $newProductImage->save();
         }
 
 

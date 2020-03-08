@@ -48,22 +48,33 @@
 Dropzone.options.myDropzone = {
     paramName     : "file", // The name that will be used to transfer the file
     maxFilesize   : 2, // MB
+    maxFiles: 100,
     autoProcessQueue: false,   //tell to dropzone not upload files automatically
     uploadMultiple: true,
     parallelUploads: 100,
-    // acceptedFiles : '.jpg, .jpeg, .png, .bmp'
-
+    addRemoveLinks: true,
+    acceptedFiles : 'image/*',
+    previewsContainer: '#dropzonePreview',
+    clickable: '#clickable',
 
      // The setting up of the dropzone
   init: function() {
     var myDropzone = this;
 
     // First change the button to actually tell Dropzone to process the queue.
-    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+    this.element.querySelector("input[type=submit]").addEventListener("click", function(e) {
       // Make sure that the form isn't actually being sent.
-      e.preventDefault();
-      e.stopPropagation();
-      myDropzone.processQueue();
+      if (myDropzone.getUploadingFiles().length === 0 && myDropzone.getQueuedFiles().length === 0) {
+            location.href = "{{ route('admin.products.index')}}";
+        }
+        else {
+            e.preventDefault();
+            e.stopPropagation();
+            myDropzone.processQueue();
+        }
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    //   myDropzone.processQueue();
     });
 
 
@@ -92,3 +103,15 @@ Dropzone.options.myDropzone = {
   }
 }
 </script>
+
+{{-- Add, Edit and Delete Modal's --}}
+{{-- <script>
+$(document).ready(function(){
+    $(document).on('click', '#addNewItem', function(){
+        $('#modalTitle').text('افزودن محصول جدید');
+        $('#add').show('200');
+
+
+    });
+});
+</script> --}}
