@@ -49,8 +49,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        $validation = $request->validate([
-        // $validator = Validator::make($request->all(), [
+         $request->validate([
             'product_code'  =>  'required|string',
             'product_name'  =>  'required|string',
             'product_price' =>  'required|string',
@@ -60,11 +59,7 @@ class ProductsController extends Controller
             'file.*'          =>  'max:2048|image' //name of image field in form
         ]);
 
-        // if ($validator->fails())
-		// {
-		// 	// return Response::make($validation->errors->first(), 400);
-		// 	return $validator->errors()->all();
-		// }
+
 
         //saving product's attribute
         $newProduct = new Product();
