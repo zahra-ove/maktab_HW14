@@ -61,8 +61,8 @@ Dropzone.options.myDropzone = {
   init: function() {
     var myDropzone = this;
 
-    // First change the button to actually tell Dropzone to process the queue.
-    this.element.querySelector("input[type=submit]").addEventListener("click", function(e) {
+    // First change the button to actually tell Dropzone to process the queue.  input[type=submit]
+    this.element.querySelector("#add").addEventListener("click", function(e) {
       // Make sure that the form isn't actually being sent.
       if (myDropzone.getUploadingFiles().length === 0 && myDropzone.getQueuedFiles().length === 0) {
             location.href = "{{ route('admin.products.index')}}";
@@ -78,6 +78,13 @@ Dropzone.options.myDropzone = {
     });
 
 
+    this.on('sending', function(file, xhr, formData) {
+            // Append all form inputs to the formData Dropzone will POST
+            var data = $('#myDropzone').serializeArray();
+            $.each(data, function(key, el) {
+                formData.append(el.name, el.value);
+            });
+    });
         // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
     // of the sending event because uploadMultiple is set to true.
     this.on("sendingmultiple", function() {
@@ -105,13 +112,15 @@ Dropzone.options.myDropzone = {
 </script>
 
 {{-- Add, Edit and Delete Modal's --}}
-{{-- <script>
+<script>
 $(document).ready(function(){
     $(document).on('click', '#addNewItem', function(){
         $('#modalTitle').text('افزودن محصول جدید');
         $('#add').show('200');
+    });
 
+    $(document).on('click', '#add', function(){
 
     });
 });
-</script> --}}
+</script>

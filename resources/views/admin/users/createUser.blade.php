@@ -15,7 +15,7 @@
         @endif
         <h2>افزودن کاربر جدید</h2>
         <br><br>
-        <form action="{{route('admin.users.store')}}" method="post">
+        <form action="{{route('admin.users.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -56,6 +56,11 @@
                         <option value="1">خانم</option>
                         <option value="2">آقا</option>
                   </select>
+            </div>
+
+            <div  class="form-group" >
+                <label for="img">آپلود تصویر</label>
+                <input type="file" name="image" id="img" >
             </div>
 
             {{-- <br/><br/><br/><br/> --}}

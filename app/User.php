@@ -26,13 +26,13 @@ class User extends Authenticatable
     }
 
 
-//one to many polymorphic relationships to image
-    public function images()
+//one to one polymorphic relationships to image
+    public function image()
     {
-        return $this->morphMany('App\Image', 'imageable');
+        return $this->morphOne('App\Image', 'imageable');
     }
 
-    
+
 
 //if user has determined role return true, otherwise return false
     public function hasRole($roleName)
@@ -49,4 +49,32 @@ class User extends Authenticatable
 
         return false;
     }
+
+
+    //second way of checking if a user has a specific role or not
+    public function hasRole2($role)
+    {
+        if($this->roles()->where('name', $role)->first())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //checking if a user has array of roles
+    public function hasAnyRole($role)
+    {
+        if($this->roles()->whereIn('name', $role)->first())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

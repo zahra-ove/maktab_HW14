@@ -5,5 +5,3 @@
         @endforeach
     </div>
 @endif
-
-

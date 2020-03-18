@@ -49,14 +49,15 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
+        return $request;
          $request->validate([
             'product_code'  =>  'required|string',
             'product_name'  =>  'required|string',
             'product_price' =>  'required|string',
             'product_count' =>  'required|string',
             'category_id'   =>  'nullable|numeric',
-            'file'          =>  'nullable',    //name of image field in form
-            'file.*'          =>  'max:2048|image' //name of image field in form
+            'file'          =>  'nullable',      //name of image field in form
+            'file.*'        =>  'max:2048|image' //name of image field in form
         ]);
 
 
@@ -162,7 +163,9 @@ class ProductsController extends Controller
             'product_name'    =>   'required|string',
             'product_price'   =>   'required|string',
             'product_count'   =>   'required|numeric',
-            'category_id'     =>   'nullable|numeric'
+            'category_id'     =>   'nullable|numeric',
+            'file'          =>  'nullable',    //name of image field in form
+            'file.*'        =>  'max:2048|image' //name of image field in form
          ]);
 
          $editProduct->product_code    =   $request->post('product_code');
@@ -172,6 +175,28 @@ class ProductsController extends Controller
          $editProduct->category_id     =   $request->post('category_id');
 
          $editProduct->save();
+
+         if($request->hasFile('file')){
+            foreach($request->file('file') as $image)
+            {
+
+                $fileNamewithExtension = $image->getClientOriginalName();         //get file name with extension
+                $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME); //get file name
+                $fileExtension = $image->getClientOriginalExtension();          //get file extension
+                $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;    // file name to store
+                $image->storeAs('public/products', $fileNameToStore);
+
+
+                //store product's image in Images table
+                $editProductImage = new Image();
+                $editProductImage->imageable_id = $editProduct->id;
+                $editProductImage->imageable_type = "App\Product";
+                $editProductImage->image_name = $fileNameToStore;
+                $editProductImage->image_path = "storage/products/";
+
+                $editProductImage->save();
+            }
+        }
 
          return redirect()->route('admin.products.index')->with('status', 'محصول با موفقیت ویرایش شد.');
     }
@@ -201,3 +226,5 @@ class ProductsController extends Controller
         return redirect('admin/products')->with('status', "محصول با موفقیت حذف شد.");
     }
 }
+
+

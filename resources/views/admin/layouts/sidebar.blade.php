@@ -191,6 +191,13 @@
                         <p>اسلایدر</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{route('admin.tags.index')}}" class="nav-link">
+                        <i class="fa fa-circle-o nav-icon"></i>
+                        <p>تگ ها</p>
+                    </a>
+                </li>
             </ul>
         </li>
 

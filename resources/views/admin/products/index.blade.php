@@ -21,9 +21,10 @@
 @endif
 
 
-{{--  data-toggle="modal" data-target="#myModal" --}}
+
 <div class="container ">
     <a href="{{route('admin.products.create')}}" class="btn btn-sm btn-outline-warning" id="addNewItem">افزودن محصول جدید</a>
+    {{-- <a href="#" class="btn btn-sm btn-outline-warning" id="addNewItem" data-toggle="modal" data-target="#myModal">افزودن محصول جدید</a> --}}
 </div>
 
 <div class="row justify-content-center">
@@ -75,7 +76,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade mt-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  {{-- <div class="modal fade mt-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
@@ -89,7 +90,7 @@
 
         <!-- Modal Body -->
         <div class="modal-body">
-            <form action="#" method="POST"  id="addForm"  enctype="multipart/form-data">
+            <form action="{{route('admin.products.store')}}" method="post"  class="dropzone" id="myDropzone"  enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -115,16 +116,19 @@
                 <!-- choosing category from list -->
                 <div class="form-group required">
                     <label for="category_id" class="col-sm-1 control-label">دسته بندی</label>
-                        <select name="category_id" id="gender" class="custom-select form-control col-sm-2" required/>
+                      <select name="category_id" id="gender" class="custom-select form-control col-sm-2" required/>
                             <option value="" selected>--دسته بندی--</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
-                        </select>
+                      </select>
                 </div>
 
-                {{-- image upload by dropzone  class="dropzone-previews" --}}
-                <div  class="dropzone" id="myDropzone"></div>
+
+                <div  id="dropzonePreview" class="dropzone-previews">
+                    <div id="clickable" class="dz-message">برای آپلود تصویر اینجا کلیک کنید.</div>
+                </div>
+
             </form>
         </div>
 
@@ -137,6 +141,6 @@
 
       </div>
     </div>
-  </div>
+  </div> --}}
 
 @endsection

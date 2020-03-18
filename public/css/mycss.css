@@ -8,6 +8,10 @@
     font-family: IRANSans;
 }
 
+.smallFont {
+    font-size: 10px;
+}
+
 .mytable>tbody>tr>td,
 .mytable>tbody>tr>th,
 .mytable>thead>tr>td,

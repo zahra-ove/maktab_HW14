@@ -27,7 +27,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.createCategory');
+        $categories = Category::all();
+        return view('admin.categories.createCategory', compact('categories'));
     }
 
     /**
@@ -39,13 +40,15 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|string'
+            'category_name' => 'required|string',
+            'parent_id' => 'required|numeric'
         ]);
 
 
         $newCat = new Category();
 
         $newCat->category_name = $request->post('category_name');
+        $newCat->parent_id = $request->post('parent_id');
 
         $newCat->save();
         return redirect('admin/categories')->with('status', 'دسته بندی جدید اضافه شد.');
@@ -70,9 +73,12 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-
-        return view('admin.categories.editCategory')->with('category', $category);
+        $thisCategory = Category::find($id);
+        $allCategory = Category::all();
+        return view('admin.categories.editCategory')->with([
+                                                            'thisCategory'=> $thisCategory,
+                                                            'allCategory' => $allCategory
+                                                            ]);
     }
 
     /**
@@ -87,14 +93,16 @@ class CategoriesController extends Controller
         $newCat = Category::find($id);
 
         $request->validate([
-            'category_name' => 'required|string'
+            'category_name' => 'required|string',
+            'parent_id'     => 'required|numeric'
         ]);
 
 
-        $newCat->category_name = $request->post('category_name');
+        $newCat->category_name  =  $request->post('category_name');
+        $newCat->parent_id      =  $request->post('parent_id');
 
         $newCat->save();
-        return redirect('admin/categories')->with('status', 'دسته بندی با موفقیت اضافه شد.');
+        return redirect('admin/categories')->with('status', 'دسته بندی با موفقیت ویرایش شد.');
     }
 
     /**

@@ -3,6 +3,8 @@
 @section('content')
 
     <div class="container">
+        
+        @include('admin.layouts.error')
 
         @if ($errors->any())
             <div class="alert alert-danger">

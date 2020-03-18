@@ -19,6 +19,7 @@
 </div>
 @endif
 
+@include('admin.layouts.error')
 
 <div class="container ">
     <a href="{{route('admin.articles.create')}}" class="btn btn-sm btn-default">افزودن مقاله جدید</a>

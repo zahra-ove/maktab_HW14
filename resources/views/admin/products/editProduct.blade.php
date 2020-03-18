@@ -17,7 +17,7 @@
         <br><br>
 
 
-        <form action="{{route('admin.products.update', ['product' => $product])}}" method="post">
+        <form action="{{route('admin.products.update', ['product' => $product])}}" method="post" class="dropzone" id="myDropzone"  enctype="multipart/form-data">
             @method('PUT')
             @csrf
 
@@ -58,9 +58,17 @@
                   </select>
             </div>
 
+
+            {{-- image upload by class="dropzone-previews" --}}
+            <div  id="dropzonePreview" class="dropzone-previews">
+                <div id="clickable" class="dz-message">برای آپلود تصویر اینجا کلیک کنید.</div>
+            </div>
+
             {{-- <br/><br/><br/><br/> --}}
             <div class="form-group my-5">
-                <input type="submit"  value="ویرایش"  class="btn btn-primary col-sm-1 control-label">
+                {{-- <input type="submit"  value="ویرایش"  class="btn btn-primary col-sm-1 control-label"> --}}
+                <button type="submit"   class="btn btn-primary col-sm-1 control-label" id="add">ویرایش</button>
+                <a href="{{route('admin.products.index')}}" class="btn btn-sm btn-outline-dark">بازگشت</a>
             </div>
 
         </form>

@@ -3,6 +3,8 @@
 @section('content')
 
 <div class="container text-center">
+    
+    @include('admin.layouts.error')
 
     {{-- <div style="width:70%;" class="mx-auto"> --}}
         <form action="{{route('admin.articles.update', ['article' => $article])}}"  method="post" enctype="multipart/form-data">

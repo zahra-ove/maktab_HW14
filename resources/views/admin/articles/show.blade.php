@@ -4,6 +4,8 @@
 
 <div class="container text-left">
 
+    @include('admin.layouts.error')
+
 
     <div class="col-4  btn-group">
         <a href="{{route('admin.articles.edit', ['article' => $article])}}" class="btn btn-warning text-white">ویرایش مقاله</a>

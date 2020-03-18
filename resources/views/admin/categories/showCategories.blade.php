@@ -2,18 +2,15 @@
 
 @section('content')
 
-@if(session('status'))
-<div class="container alert alert-success alert-dismissable">
-    <button class="close text-white" type="button" data-dismiss="alert">&times;&nbsp;&nbsp;</button>
-    {{session('status')}}
-</div>
-@endif
-{{-- 
     @if(session('status'))
-        <div class="container alert alert-success">
-            {{session('status')}}
-        </div>
-    @endif --}}
+    <div class="container alert alert-success alert-dismissable">
+        <button class="close text-white" type="button" data-dismiss="alert">&times;&nbsp;&nbsp;</button>
+        {{session('status')}}
+    </div>
+    @endif
+
+    @include('admin.layouts.error')
+
 
     <div class="container ">
         <a href="{{route('admin.categories.create')}}" class="btn btn-sm btn-outline-warning">افزودن دسته بندی جدید</a>
@@ -24,6 +21,7 @@
                 <tr>
                     <th>Id</th>
                     <th>نام دسته بندی</th>
+                    <th>parent_id</th>
                     <td>تنظیمات</td>
                 </tr>
             </thead>
@@ -32,6 +30,7 @@
                     <tr>
                         <td>{{$category->id}}</td>
                         <td>{{$category->category_name}}</td>
+                        <td>{{$category->parent_id}}</td>
                         <td>
                             <div class="btn-group">
                             <a href="{{ route('admin.categories.edit', ['category' => $category] ) }}" class="btn btn-sm btn-primary">ویرایش</a>
