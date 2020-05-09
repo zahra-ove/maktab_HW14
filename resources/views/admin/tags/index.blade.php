@@ -38,6 +38,7 @@
                             <td>{{$tag->description}}</td>
                             <td>
                                 <div class="btn-group">
+                                <a href="{{ route('admin.tags.show', ['tag' => $tag])}}" class="btn btn-sm btn-warning">نمایش</a>
                                 <a href="{{ route('admin.tags.edit', ['tag' => $tag])}}" class="btn btn-sm btn-primary">ویرایش</a>
 
                                 <form action="{{route('admin.tags.destroy', ['tag' => $tag])}}" method="post">

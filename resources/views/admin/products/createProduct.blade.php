@@ -40,6 +40,8 @@
                 <input type="number"  name="product_count"    placeholder="موجودی"  id="product_count" class="form-control" value="{{old('product_count')}}" />
             </div>
 
+
+
             <!-- choosing category from list -->
             <div class="form-group required">
                 <label for="category_id" class="col-sm-1 control-label">دسته بندی</label>
@@ -51,6 +53,16 @@
                   </select>
             </div>
 
+
+            <!-- selecting tags for this product  -->
+            <div class="form-group required">
+                <label for="tags" class="col-sm-1 control-label">تگ</label>
+                <select class="js-example-basic-multiple  form-control" name="tags[]" id="tags" multiple="multiple">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
+                    @endforeach
+                </select>
+            </div>
             {{-- image upload by class="dropzone-previews" --}}
             <div  id="dropzonePreview" class="dropzone-previews">
                 <div id="clickable" class="dz-message">برای آپلود تصویر اینجا کلیک کنید.</div>

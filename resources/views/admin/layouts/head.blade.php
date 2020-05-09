@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('adminpanel/dist/css/custom-style.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('css/mycss.css')}}">
+    <link rel="stylesheet" href="{{asset('adminpanel/dist/css/select2.min.css')}}">
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 
     <script src="{{asset('js/dropzone.js')}}"></script> --}}

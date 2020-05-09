@@ -42,6 +42,7 @@
 <script src="{{asset('adminpanel/dist/js/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 <script src="{{asset('js/dropzone.js')}}"></script>
+<script src="{{asset('adminpanel/dist/js/select2.min.js')}}"></script>
 
 
 <script>
@@ -122,5 +123,14 @@ $(document).ready(function(){
     $(document).on('click', '#add', function(){
 
     });
+});
+</script>
+
+
+
+{{-- select2  jQuery plugin--}}
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
 });
 </script>

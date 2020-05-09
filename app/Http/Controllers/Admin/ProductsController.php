@@ -11,6 +11,7 @@ use App\Product;
 use App\Image;
 use App\Pimage;
 use App\Category;
+use App\Tag;
 // code mahsool bayad unique bashad ke in nokte ra dar jadvale product dar nazar nagereftam.
 class ProductsController extends Controller
 {
@@ -37,7 +38,11 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.products.createProduct')->with('categories', $categories);
+        $tags = Tag::all();
+        return view('admin.products.createProduct')->with([
+                                                            'categories' => $categories,
+                                                            'tags'       => $tags
+                                                            ]);
     }
 
     /**
@@ -49,7 +54,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        return $request;
+        // dd($request);
          $request->validate([
             'product_code'  =>  'required|string',
             'product_name'  =>  'required|string',
@@ -108,6 +113,11 @@ class ProductsController extends Controller
         }
 
 
+        //store tags for this product, if any tag exist
+        if($request->has('tags'))
+        {
+            $newProduct->tags()->sync($request->input('tags'));
+        }
 
         // //store product's image in Images table
         // $newProductImage = new Image();
@@ -143,8 +153,12 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $tags = Tag::all();
 
-        return view('admin.products.editProduct')->with('product', $product);
+        return view('admin.products.editProduct')->with([
+                                                            'product'=> $product,
+                                                            'tags'   => $tags
+                                                            ]);
     }
 
     /**
@@ -198,6 +212,12 @@ class ProductsController extends Controller
             }
         }
 
+        //store tags for this product, if any tag exist
+        if($request->has('tags'))
+        {
+            $editProduct->tags()->sync($request->input('tags'));
+        }
+
          return redirect()->route('admin.products.index')->with('status', 'محصول با موفقیت ویرایش شد.');
     }
 
@@ -210,6 +230,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         $deleteProduct = Product::find($id);
+        
         //get product's image name
         $productImageName = $deleteProduct->images()->first()->image_name;
 
@@ -220,6 +241,7 @@ class ProductsController extends Controller
 
         $deleteProduct->images()->delete();   //delete all images related to this product
         $deleteProduct->comments()->delete();  //delete all comments related to this product
+        $deleteProduct->tags()->detach();  //delete all tags related to this product
 
         $deleteProduct->delete();  //and in final step, delete the product itself
 

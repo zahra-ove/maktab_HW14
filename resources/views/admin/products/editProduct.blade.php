@@ -59,6 +59,16 @@
             </div>
 
 
+            <!-- selecting tags for this product  -->
+            <div class="form-group required">
+                <label for="tags" class="col-sm-1 control-label">تگ</label>
+                <select class="js-example-basic-multiple  form-control" name="tags[]" id="tags" multiple="multiple">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}"  @if($product->tags->pluck('id')->contains($tag->id)) checked @endif>{{$tag->tag_name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             {{-- image upload by class="dropzone-previews" --}}
             <div  id="dropzonePreview" class="dropzone-previews">
                 <div id="clickable" class="dz-message">برای آپلود تصویر اینجا کلیک کنید.</div>
